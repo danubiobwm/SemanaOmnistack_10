@@ -1,6 +1,6 @@
 # Semana Omnistack 10
 
-# FrontEnd AppWeb
+# AppWeb Mobile
 
 ## To run this project:
 
