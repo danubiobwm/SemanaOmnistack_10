@@ -1,6 +1,7 @@
 import api from '../services/api';
 import Dev from '../models/Dev';
 import parseStringAsArray from '../util/parseStringAsArray';
+import { findConnections, sendMessage } from '../webSocket';
 
 class DevController {
   async index(request, response) {
@@ -33,10 +34,16 @@ class DevController {
         techs: techsArray,
         location,
       });
-    }
+      /* Filtrar as conexões que estao no max 10km de distancia,
+      e que o novo dev tenha pelo menos uma tecn filtradas */
 
+      const sendSocketMessageTo = findConnections(
+        { latitude, longitude },
+        techsArray
+      );
+      sendMessage(sendSocketMessageTo, 'new-dev', dev);
+    }
     return response.json(dev);
   }
 }
-
 export default new DevController();
